@@ -2,10 +2,10 @@
 
 Two factories are set up here:
 
-- **`factory-lite`** (online) — `/home/ray/Documents/factory-lite/` — projects default to the zero-cost catalog Builder (`opencode/tidepool-alpha-free`).
-- **`factory-local`** (offline) — `/home/ray/Documents/factory-local/` — projects default to the local Builder `ollama/qwen3.5:9b-32k`.
+- **`factory-lite`** (online) — `/home/username/Documents/factory-lite/` — projects default to the zero-cost catalog Builder (`opencode/tidepool-alpha-free`).
+- **`factory-local`** (offline) — `/home/username/Documents/factory-local/` — projects default to the local Builder `ollama/qwen3.5:9b-32k`.
 
-Start a project: `bash /home/ray/Documents/<factory>/start_new_project.sh <name>` or double-click `Factory_Lite — New Project` / `Factory_Local — New Project` on the Desktop. Then run the Builder: `opencode run --auto "Play the Factory Builder role per /home/ray/Documents/<factory>/roles/builder.md — start with factory_task #1"` in the new project.
+Start a project: `bash /home/username/Documents/<factory>/start_new_project.sh <name>` or double-click `Factory_Lite — New Project` / `Factory_Local — New Project` on the Desktop. Then run the Builder: `opencode run --auto "Play the Factory Builder role per /home/username/Documents/<factory>/roles/builder.md — start with factory_task #1"` in the new project.
 
 ## Key config that made local models work through opencode
 
@@ -36,7 +36,7 @@ Start a project: `bash /home/ray/Documents/<factory>/start_new_project.sh <name>
 
 ## Local model context sizes
 
-Models run with 32k context via per-model variants (`ollama create` with `FROM <base>` + `PARAMETER num_ctx 32768`; Modelfiles in `/home/ray/Documents/ollama-32k/`). The server-level default is `OLLAMA_CONTEXT_LENGTH` (default 4096) — raised by editing `/etc/systemd/system/ollama.service` and restarting the service (root required).
+Models run with 32k context via per-model variants (`ollama create` with `FROM <base>` + `PARAMETER num_ctx 32768`; Modelfiles in `/home/username/Documents/ollama-32k/`). The server-level default is `OLLAMA_CONTEXT_LENGTH` (default 4096) — raised by editing `/etc/systemd/system/ollama.service` and restarting the service (root required).
 
 ## Useful GitHub issues
 
