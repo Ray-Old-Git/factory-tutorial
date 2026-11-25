@@ -17,7 +17,7 @@
 
 1. **New software project:** set up a new factory project — `mkdir` a new
    project folder, `git init`, set the git identity, add the factory tasks
-   with `python3 /home/ray/Documents/factory-local/tools/factory_task.py
+   with `python3 /home/username/Documents/factory-local/tools/factory_task.py
    --project-dir <new project> add "<task>"`, set the project's `opencode.json`
    model to `ollama/qwen3:4b-32k`.
 2. **Continue offline.** Builder `ollama/qwen3:4b-32k` (the verified local

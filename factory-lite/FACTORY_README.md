@@ -30,12 +30,13 @@ local AI agent (OpenCode + local models). All artifacts are on disk.
 
 ## Desktop shortcuts (Double-click on Desktop)
 
-- **Factory Lite — Resume** — `/home/ray/Desktop/Factory_Lite_Resume.desktop`
+- **Factory Lite — Resume** — `/home/
+usernamey/Desktop/Factory_Lite_Resume.desktop`
   → `factory_resume` — print the factory resume sheet (HANDOFF, checkpoint,
   tasks, git) and open the project folder. Use after a restart to see the
   current factory state and continue.
 - **Factory Lite — New Project** —
-  `/home/ray/Desktop/Factory_New_Project.desktop` →
+  `/home/username/Desktop/Factory_New_Project.desktop` →
   `factory-lite/start_new_project.sh <name>` — start a new software project:
   creates `~/Documents/<name>`, git init, identity, config (model + MCP),
   adds the factory tasks.
@@ -49,7 +50,7 @@ local AI agent (OpenCode + local models). All artifacts are on disk.
 - Start the Builder rounds: in the new project, open OpenCode, run the
   Builder role:
   ```
-  opencode run --auto "Play the Factory Builder role per /home/ray/Documents/factory-lite/roles/builder.md — start with factory_task #1"
+  opencode run --auto "Play the Factory Builder role per /home/username/Documents/factory-lite/roles/builder.md — start with factory_task #1"
   ```
 - After shutdown/interruption: **Factory Lite — Resume** — prints the resume
   sheet.
