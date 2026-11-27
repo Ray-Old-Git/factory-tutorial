@@ -18,13 +18,14 @@ one approved feature per round, in small diffs.
    - The tool saves the run to `verify_runs/` automatically and prints JSON on
      stdout — read it and check `ok`.
 4. If verify says `ok: true`:
+   - Mark the task complete first so `tasks.json` is included in the checkpoint commit:
+     `python3 tools/factory_task.py --project-dir <project> done <id>`.
    - Save the checkpoint with the gate open:
      `python3 tools/factory_checkpoint.py --project-dir <project> --require-ok --task "<what you built>" --status done`
-   - Mark the task complete:
-     `python3 tools/factory_task.py --project-dir <project> done <id>`.
    - If `--require-ok` refuses (exit 1), read the newest run in `verify_runs/`
-     (`cat verify_runs/$(ls -t verify_runs | head -1)`) and fix what failed,
-     then re-run verify.
+     (`cat verify_runs/$(ls -t verify_runs | head -1)`), fix what failed, re-run
+     verify, then re-run checkpoint. If you need to back out, reopen the task with
+     `factory_task start <id>`.
 5. If verify says `ok: false`:
    - Make at most two focused fix attempts; on the second failure, re-run
      verify first and use the new log in the retry (no blind retries).

@@ -23,8 +23,8 @@ local AI agent (OpenCode + local models). All artifacts are on disk.
 
 - `planner.md` — propose the plan (engine, features, structure, checks).
 - `builder.md` — implement one feature per round: `factory_task next/start`,
-  implement, `factory_verify`, `factory_checkpoint --require-ok`,
-  `factory_task done`.
+  implement, `factory_verify`, `factory_task done`,
+  `factory_checkpoint --require-ok`.
 - `auditor.md` — review packet, approval-gated.
 - `human_tester.md` — final build + report, approval-gated.
 

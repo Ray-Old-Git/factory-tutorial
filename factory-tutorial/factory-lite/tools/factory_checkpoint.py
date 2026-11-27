@@ -95,24 +95,7 @@ def main() -> int:
 
     commit = None
     backup = None
-    diff_stat = None
-    dirty = []
-
-    if _is_repo(proj):
-        _git(["add", "-A"], proj)
-        msg = f"factory checkpoint {cp_id}" + (f": {args.task}" if args.task else "")
-        subprocess.run(
-            ["git", "commit", "--allow-empty", "-m", msg],
-            cwd=proj, capture_output=True, text=True,
-        )
-        commit = _git(["rev-parse", "--short", "HEAD"], proj).strip() or None
-        stat = _git(["diff", "--stat", "HEAD~1", "HEAD"], proj).strip()
-        diff_stat = stat or None
-        dirty = [
-            line for line in _git(["status", "--porcelain"], proj).splitlines()
-            if line.strip()
-        ]
-    else:
+    if not _is_repo(proj):
         backups = proj / "backups"
         backups.mkdir(parents=True, exist_ok=True)
         tar_path = backups / f"project-{cp_id}.tar.gz"
@@ -150,15 +133,39 @@ def main() -> int:
         "time": now.isoformat(timespec="seconds"),
         "task": args.task,
         "status": args.status,
-        "commit": commit,
+        "commit": None,
         "backup": backup,
-        "diff_stat": diff_stat,
-        "dirty_files": dirty,
+        "diff_stat": None,
+        "dirty_files": [],
         "verify": verify,
     }
     if verify_run_path is not None:
         cp["verify_run"] = str(verify_run_path)
     (proj / "checkpoint.json").write_text(json.dumps(cp, indent=2) + "\n")
+
+    if _is_repo(proj):
+        _git(["add", "-A"], proj)
+        msg = f"factory checkpoint {cp_id}" + (f": {args.task}" if args.task else "")
+        subprocess.run(
+            ["git", "commit", "--allow-empty", "-m", msg],
+            cwd=proj, capture_output=True, text=True,
+        )
+        commit = _git(["rev-parse", "--short", "HEAD"], proj).strip() or None
+        stat = _git(["diff", "--stat", "HEAD~1", "HEAD"], proj).strip()
+        cp["commit"] = commit
+        cp["diff_stat"] = stat or None
+        (proj / "checkpoint.json").write_text(json.dumps(cp, indent=2) + "\n")
+        _git(["add", "checkpoint.json"], proj)
+        subprocess.run(
+            ["git", "commit", "--amend", "--no-edit"],
+            cwd=proj, capture_output=True, text=True,
+        )
+        # Amend changes the commit hash; the hash stored in checkpoint.json is
+        # the pre-amend hash, but the repo is left clean.
+        cp["dirty_files"] = [
+            line for line in _git(["status", "--porcelain"], proj).splitlines()
+            if line.strip()
+        ]
 
     print(cp_id)
     return 0

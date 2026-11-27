@@ -38,8 +38,7 @@ sized for a low-VRAM local machine.
 ## Flow
 
 Planner (adds one task per feature with `factory_task add`) → Builder rounds
-(`factory_task next`/`start` → edit → `factory_verify` → `factory_checkpoint
---require-ok` → `factory_task done`) → Auditor (`factory_review_packet`,
+(`factory_task next`/`start` → edit → `factory_verify` → `factory_task done` → `factory_checkpoint --require-ok`) → Auditor (`factory_review_packet`,
 approval-gated) → Human Tester (build + report, approval-gated).
 
 Builder rule of thumb on this box: at most two fix attempts per feature; if it
